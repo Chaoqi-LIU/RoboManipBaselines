@@ -24,6 +24,8 @@ class MujocoEnvBase(EnvDataMixin, MujocoEnv, ABC):
         self,
         xml_file,
         init_qpos,
+        width=640,
+        height=480,
         **kwargs,
     ):
         MujocoEnv.__init__(
@@ -31,8 +33,8 @@ class MujocoEnvBase(EnvDataMixin, MujocoEnv, ABC):
             model_path=xml_file,
             frame_skip=self.frame_skip,
             observation_space=self.observation_space,
-            width=640,
-            height=480,
+            width=width,
+            height=height,
             default_camera_config=self.default_camera_config,
             **kwargs,
         )
@@ -40,6 +42,9 @@ class MujocoEnvBase(EnvDataMixin, MujocoEnv, ABC):
         self.mujoco_renderer.height = None
 
         self.world_random_scale = None
+
+        self.width = width
+        self.height = height
 
         self.setup_robot(init_qpos)
         self.setup_camera()
@@ -59,7 +64,7 @@ class MujocoEnvBase(EnvDataMixin, MujocoEnv, ABC):
             camera["name"] = camera_name
             camera["id"] = camera_id
             camera["viewer"] = OffScreenViewer(
-                self.model, self.data, width=640, height=480
+                self.model, self.data, width=self.width, height=self.height
             )
             # Because "/" are not allowed in HDF5 keys, replace "/" with "_" in dictionary keys
             self.cameras[camera_name.replace("/", "_")] = camera
