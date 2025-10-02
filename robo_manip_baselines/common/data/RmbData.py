@@ -3,7 +3,7 @@ import shutil
 
 import h5py
 import numpy as np
-import torchcodec
+# import torchcodec
 import videoio
 
 from .DataKey import DataKey

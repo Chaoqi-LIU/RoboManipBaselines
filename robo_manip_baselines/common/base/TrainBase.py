@@ -11,7 +11,7 @@ import numpy as np
 import psutil
 import torch
 from torch.utils.data import DataLoader
-from torch.utils.tensorboard import SummaryWriter
+# from torch.utils.tensorboard import SummaryWriter
 
 from ..data.CachedDataset import CachedDataset
 from ..data.DataKey import DataKey

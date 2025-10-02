@@ -66,7 +66,10 @@ class MujocoEnvBase(EnvDataMixin, MujocoEnv, ABC):
 
         # This is required to automatically switch context to free camera in render()
         # https://github.com/Farama-Foundation/Gymnasium/blob/81b87efb9f011e975f3b646bab6b7871c522e15e/gymnasium/envs/mujoco/mujoco_rendering.py#L695-L697
-        self.mujoco_renderer._viewers["dummy"] = None
+        class dummy_viewer:
+            def close(self):
+                pass
+        self.mujoco_renderer._viewers["dummy"] = dummy_viewer()
 
         self._first_render = True
 
